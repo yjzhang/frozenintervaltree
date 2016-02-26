@@ -1,3 +1,8 @@
+"""
+Frozen Interval Trees
+
+"""
+
 from operator import itemgetter
 
 cdef class IntervalValue:
@@ -138,8 +143,10 @@ def divide_intervals(list interval_values):
     return center_node
 
 cdef class FrozenIntervalTree:
+    """
+    """
 
-    cdef object interval_values, root
+    cdef object root
 
     def __init__(self, intervals, values):
         """
@@ -148,7 +155,6 @@ cdef class FrozenIntervalTree:
         shouldn't be modified.
         """
         # step 1: sort intervals by endpoints 
-        self.interval_values = {interval:v for interval,v in zip(intervals, values)}
         iv = [(i[0], i[1], v) for i, v in zip(intervals, values)]
         self.root = divide_intervals(iv)
 
@@ -156,6 +162,8 @@ cdef class FrozenIntervalTree:
         """
         Returns all intervals and their associated values overlapping with a
         given point.
+
+        Input: point - number
         """
         intervals = self.root.search_recursive(point)
         return [(i[0], i[1]) for i in intervals], [i[2] for i in intervals]
@@ -164,6 +172,9 @@ cdef class FrozenIntervalTree:
         """
         Returns all intervals and their associated values overlapping a
         given range.
+
+        Input: interval - tuple of two numbers, where the first number is
+        less than the second number.
         """
         intervals = self.root.search_range_recursive(interval)
         return [(i[0], i[1]) for i in intervals], [i[2] for i in intervals]
