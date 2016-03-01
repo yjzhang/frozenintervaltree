@@ -2,7 +2,6 @@ import unittest
 
 import frozenintervaltree
 import random
-import time
 
 class BasicTest(unittest.TestCase):
 
