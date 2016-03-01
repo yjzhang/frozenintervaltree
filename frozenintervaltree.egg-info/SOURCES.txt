@@ -1,0 +1,8 @@
+setup.py
+frozenintervaltree/__init__.py
+frozenintervaltree/frozenintervaltree.c
+frozenintervaltree.egg-info/PKG-INFO
+frozenintervaltree.egg-info/SOURCES.txt
+frozenintervaltree.egg-info/dependency_links.txt
+frozenintervaltree.egg-info/requires.txt
+frozenintervaltree.egg-info/top_level.txt
