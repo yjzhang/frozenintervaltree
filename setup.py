@@ -1,4 +1,4 @@
-from distutils.core import setup
+from setuptools import setup
 from Cython.Build import cythonize
 
 setup(
@@ -9,5 +9,7 @@ setup(
     description = 'Frozen interval trees',
     author = 'Yue Zhang',
     author_email = 'yjzhang@cs.washington.edu',
-    ext_modules = cythonize('frozenintervaltree/frozenintervaltree.pyx')
+    ext_modules = cythonize('frozenintervaltree/frozenintervaltree.pyx'),
+    test_suite='nose.collector',
+    tests_require=['nose']
 )

@@ -3,10 +3,10 @@ import tqdm
 import random
 import time
 
-def timing_test():
+def timing():
     intervals = []
     values = []
-    n_intervals = 1000000
+    n_intervals = 100000
     print('# Intervals: {0}'.format(n_intervals))
     for i in tqdm.tqdm(range(n_intervals)):
         interval_start = random.randint(-100000, 10000000)
