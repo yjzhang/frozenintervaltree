@@ -36,3 +36,6 @@ def timing():
             print v
     print('Interval Tree Range Query Time: {0}'.format(time.time()-t0))
 
+
+if __name__=='__main__':
+    timing()

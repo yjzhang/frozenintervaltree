@@ -25,6 +25,9 @@ cdef interval_overlap(tuple interval, tuple i):
         return True
     return False
 
+def reconstruct_node(left_int, right_int, median, left, right, value):
+    return Node(left_int, right_int, median, left, right, value)
+
 cdef class Node:
     """
     Interval Tree node
@@ -42,6 +45,9 @@ cdef class Node:
         self.left = left
         self.right = right
         self.value = value
+
+    def __reduce__(self):
+        return reconstruct_node, (self.left_intervals, self.right_intervals, self.median_value, self.left, self.right, self.value)
 
     def point_in_node(self, point):
         """
@@ -142,6 +148,16 @@ def divide_intervals(list interval_values):
     center_node.right = right_node
     return center_node
 
+def reconstruct_tree(self, left_int, right_int, median, left, right, value):
+    fit = FrozenIntervalTree(None, None)
+    fit.root = Node(left_int, right_int, median, left, right, value)
+    return fit
+
+def reconstruct_tree_2(root):
+    fit = FrozenIntervalTree(None, None)
+    fit.root = root
+    return fit
+
 cdef class FrozenIntervalTree:
     """
     """
@@ -155,8 +171,14 @@ cdef class FrozenIntervalTree:
         shouldn't be modified.
         """
         # step 1: sort intervals by endpoints 
-        iv = [(i[0], i[1], v) for i, v in zip(intervals, values)]
-        self.root = divide_intervals(iv)
+        if intervals is None or values is None:
+            self.root = None
+        else:
+            iv = [(i[0], i[1], v) for i, v in zip(intervals, values)]
+            self.root = divide_intervals(iv)
+
+    def __reduce__(self):
+        return reconstruct_tree_2, (self.root,)
 
     def search_point(self, point):
         """
